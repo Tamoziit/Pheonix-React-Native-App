@@ -78,7 +78,7 @@ app.get('/api/movies/search', async (req, res) => {
             return res.status(400).json({ error: 'Query parameter is required' });
         }
 
-        const endpoint = `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}`;
+        const endpoint = `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}&sort_by=popularity.desc`;
 
         const response = await fetch(endpoint, {
             method: "GET",
