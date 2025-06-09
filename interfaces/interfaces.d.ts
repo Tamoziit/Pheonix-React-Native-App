@@ -26,6 +26,8 @@ interface Movie {
     name: string;
     origin_country: string;
   }[];
+  origin_country?: string[];
+  tagline?: string | null;
 }
 
 interface TrendingMovie {

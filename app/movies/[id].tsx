@@ -54,6 +54,11 @@ const MovieDetails = () => {
 
 						<View className='flex-col items-start justify-center mt-5 px-5'>
 							<Text className='text-white font-bold text-xl'>{movie?.title}</Text>
+							{movie?.tagline && (
+								<Text className='text-light-200 font-normal text-base -mt-1'>
+									{movie?.tagline}
+								</Text>
+							)}
 							<View className='flex-row items-center gap-x-1 mt-2'>
 								<Text className='text-light-200 text-sm'>{movie?.release_date?.split('-')[0]}</Text>
 								<Text className='text-light-200 text-sm'>{movie?.runtime}m</Text>
@@ -93,6 +98,17 @@ const MovieDetails = () => {
 							</View>
 
 							<MovieInfo label="Production Companies" value={movie?.production_companies?.map((c) => c.name).join(' - ') || "N/A"} />
+
+							<View className='flex flex-row justify-between w-3/4'>
+								<MovieInfo
+									label="Original Language"
+									value={movie?.original_language.toUpperCase() || "N/A"}
+								/>
+								<MovieInfo
+									label="Country"
+									value={movie?.origin_country?.map((c) => c.toUpperCase()).join(' - ') || "N/A"}
+								/>
+							</View>
 						</View>
 					</ScrollView>
 
