@@ -101,6 +101,33 @@ app.get('/api/movies/search', async (req, res) => {
     }
 });
 
+// Proxy route for movie details
+app.get('/api/movies/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const endpoint = `${TMDB_CONFIG.BASE_URL}/movie/${id}?api_key=${TMDB_CONFIG.API_KEY}`;
+
+        const response = await fetch(endpoint, {
+            method: "GET",
+            headers: TMDB_CONFIG.headers,
+        });
+
+        if (!response.ok) {
+            throw new Error(`TMDB API error: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        res.json(data);
+
+    } catch (error) {
+        console.error('Error fetching movie details:', error);
+        res.status(500).json({
+            error: 'Failed to fetch movie details',
+            message: error.message
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`🚀 Proxy server running on http://localhost:${PORT}`);
     console.log(`📡 TMDB API Key configured: ${!!process.env.TMDB_API_KEY}`);
